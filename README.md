@@ -4,7 +4,9 @@
 - Processus : feature branch -> commits -> PR -> checks -> merge via UI -> suppression de branche.
 
 --------------------------
-SCREEN CONFIG 
+![alt text](image.png)
+![alt text](image-1.png)
+![alt text](image-2.png)
 --------------------------
 ## SECTION 2 - CI/CD
 - Badge statut CI/CD.
