@@ -39,7 +39,7 @@ jobs:
           --health-timeout=5s
           --health-retries=5
     env:
-      MONGODB_URI: mongodb://localhost:27017/support_api_ci
+      MONGODB_URI: mongodb://localhost:27017/support_api_V2_ci
       NODE_ENV: test
     steps:
       - name: Checkout
