@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-async function connectDatabase(uri) {
+export async function connectDatabase(uri) {
   if (!uri) {
     throw new Error('Missing MongoDB URI');
   }
@@ -8,5 +8,3 @@ async function connectDatabase(uri) {
   await mongoose.connect(uri);
   return mongoose.connection;
 }
-
-module.exports = { connectDatabase };

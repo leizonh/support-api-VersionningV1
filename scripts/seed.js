@@ -1,7 +1,8 @@
-require('dotenv').config();
-const mongoose = require('mongoose');
-const RequestType = require('../src/models/RequestType');
+import dotenv from 'dotenv';
+import mongoose from 'mongoose';
+import RequestType from '../src/models/RequestType.js';
 
+dotenv.config();
 const URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/support_api';
 
 async function run() {
@@ -14,7 +15,7 @@ async function run() {
       description: 'Incident technique bloquant ou non',
       priority: 'high',
       category: 'support',
-      estimatedResponseTime: 4
+      estimatedResponseTime: 4,
     },
     {
       code: 'BILLING_QUESTION',
@@ -22,7 +23,7 @@ async function run() {
       description: 'Demande d’explication sur facture',
       priority: 'medium',
       category: 'billing',
-      estimatedResponseTime: 24
+      estimatedResponseTime: 24,
     },
     {
       code: 'ACCOUNT_CHANGE',
@@ -30,7 +31,7 @@ async function run() {
       description: 'Changement d’informations du compte',
       priority: 'low',
       category: 'account',
-      estimatedResponseTime: 48
+      estimatedResponseTime: 48,
     },
     {
       code: 'FEATURE_REQUEST',
@@ -38,7 +39,7 @@ async function run() {
       description: 'Suggestion d’évolution produit',
       priority: 'medium',
       category: 'product',
-      estimatedResponseTime: 72
+      estimatedResponseTime: 72,
     },
     {
       code: 'COMPLAINT',
@@ -46,8 +47,8 @@ async function run() {
       description: 'Plainte client sur service',
       priority: 'critical',
       category: 'support',
-      estimatedResponseTime: 12
-    }
+      estimatedResponseTime: 12,
+    },
   ]);
   console.log('Seed completed');
   await mongoose.disconnect();

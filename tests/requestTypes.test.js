@@ -1,10 +1,12 @@
-require('dotenv').config();
-const mongoose = require('mongoose');
-const request = require('supertest');
-const app = require('../src/server');
-const RequestType = require('../src/models/RequestType');
+import dotenv from 'dotenv';
+import mongoose from 'mongoose';
+import request from 'supertest';
+import app from '../src/server.js';
+import RequestType from '../src/models/RequestType.js';
 
-const URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/support_api_test';
+dotenv.config();
+const URI =
+  process.env.MONGODB_URI || 'mongodb://localhost:27017/support_api_test';
 
 beforeAll(async () => {
   await mongoose.connect(URI);
@@ -16,8 +18,8 @@ beforeAll(async () => {
       description: 'Pour tests',
       priority: 'medium',
       category: 'test',
-      estimatedResponseTime: 1
-    }
+      estimatedResponseTime: 1,
+    },
   ]);
 });
 
@@ -47,7 +49,7 @@ describe('Request Types API', () => {
       description: 'Création de test',
       priority: 'low',
       category: 'test',
-      estimatedResponseTime: 2
+      estimatedResponseTime: 2,
     };
     const res = await request(app).post('/api/request-types').send(payload);
     expect(res.statusCode).toBe(201);

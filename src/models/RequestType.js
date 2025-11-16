@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const RequestTypeSchema = new mongoose.Schema(
   {
@@ -8,13 +8,13 @@ const RequestTypeSchema = new mongoose.Schema(
     priority: {
       type: String,
       enum: ['low', 'medium', 'high', 'critical'],
-      default: 'medium'
+      default: 'medium',
     },
     category: { type: String, required: true },
-    estimatedResponseTime: { type: Number }, // heures
-    isActive: { type: Boolean, default: true }
+    estimatedResponseTime: { type: Number },
+    isActive: { type: Boolean, default: true },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-module.exports = mongoose.model('RequestType', RequestTypeSchema);
+export default mongoose.model('RequestType', RequestTypeSchema);

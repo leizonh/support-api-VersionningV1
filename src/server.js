@@ -1,24 +1,27 @@
-require('dotenv').config();
-const express = require('express');
-const { connectDatabase } = require('./config/database');
-const requestTypes = require('./routes/requestTypes');
+import express from 'express';
+import RequestType from '../models/RequestType.js';
 
-const app = express();
-app.use(express.json());
-app.get('/health', (_req, res) => res.status(200).json({ status: 'ok' }));
-app.use('/api/request-types', requestTypes);
+const router = express.Router();
 
-module.exports = app;
+router.get('/', async (_req, res) => {
+  const types = await RequestType.find({ isActive: true });
+  res.json(types);
+});
 
-if (process.env.NODE_ENV !== 'test') {
-  const PORT = process.env.PORT || 3000;
-  const URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/support_api';
-  connectDatabase(URI)
-    .then(() => {
-      app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-    })
-    .catch((err) => {
-      console.error('Failed to connect to DB:', err);
-      process.exit(1);
-    });
-}
+router.get('/:id', async (req, res) => {
+  const type = await RequestType.findById(req.params.id);
+  if (!type) return res.status(404).json({ error: 'Not found' });
+  res.json(type);
+});
+
+router.post('/', async (req, res) => {
+  try {
+    const newType = new RequestType(req.body);
+    await newType.save();
+    res.status(201).json(newType);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+export default router;
